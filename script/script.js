@@ -56,6 +56,8 @@ const loadSecondaryImg = () => {
     })
     .catch((error) => console.error(error));
 };
+
+
 const editToHide = () => {
   btn.forEach((button) => {
     if (button.innerText.trim() === "Edit") {
