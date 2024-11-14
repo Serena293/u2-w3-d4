@@ -1,7 +1,9 @@
 const loadImgBtn = document.getElementById("load-image");
 const secondaryImgBtn = document.getElementById("secondary-image");
 const imgElements = document.querySelectorAll("img");
-const btn = document.querySelectorAll('button')
+const btn = document.querySelectorAll("button");
+const hideBtn = document.getElementsByClassName("hide-btn");
+const cards = document.getElementsByClassName('cards')
 
 const loadImgURL = "https://api.pexels.com/v1/search?query=nature";
 const apiKey = "n5BTjpmfhx2Ykmp0FhNNWxUSmAkAnVTJnYe9fMfubp2v4WTjYmmIPGNQ";
@@ -38,7 +40,7 @@ const loadSecondaryImg = () => {
     },
   })
     .then((response) => {
-      console.log(response)
+      console.log(response);
 
       if (response.ok) {
         return response.json();
@@ -47,7 +49,7 @@ const loadSecondaryImg = () => {
       }
     })
     .then((data) => {
-        // console.log(data)
+      // console.log(data)
       for (let i = 0; i < imgElements.length; i++) {
         imgElements[i].setAttribute("src", data.photos[i].src.medium);
       }
@@ -55,17 +57,24 @@ const loadSecondaryImg = () => {
     .catch((error) => console.error(error));
 };
 const editToHide = () => {
-    btn.forEach((button) => {
-        if (button.innerText.trim() === 'Edit') { 
-            button.innerText = 'Hide';
-             button.setAttribute('id', 'hide-btn')
-        }
-    });
+  btn.forEach((button) => {
+    if (button.innerText.trim() === "Edit") {
+      button.innerText = "Hide";
+      button.setAttribute("class", "hide-btn");
+    }
+  });
 };
 
+const removeCard = (index) => {    
+    cards[index].classList.add("d-none");
+  };
 
-
-editToHide()
+editToHide();
 
 loadImgBtn.addEventListener("click", loadImg);
 secondaryImgBtn.addEventListener("click", loadSecondaryImg);
+
+
+for (let i = 0; i < hideBtn.length; i++) {
+    hideBtn[i].addEventListener("click", removeCard(i));
+  } //hideBtn racchiuse più elementi quindi è necessario un ciclo per aggiungere la funziona tutti i pulsanti
